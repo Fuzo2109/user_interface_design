@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MENSWEAR - Premium men's fashion for modern gentlemen aged 16-36">
+    <meta name="keywords" content="men's fashion, men's clothing, dress shirts, jeans, jackets, premium menswear">
+    <meta name="author" content="MENSWEAR">
+    <title>MENSWEAR - Premium Men's Fashion</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <!-- Top Bar -->
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-left">
+                    <span>📧 support@menswear.com</span>
+                    <span>📞 +1 800 MENSWEAR</span>
+                </div>
+                <div class="header-top-right">
+                    <a href="#">Track Order</a>
+                    <a href="#">Help</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Header -->
+        <div class="header-main">
+            <div class="container">
+                <nav class="nav-container">
+                    <!-- Logo -->
+                    <a href="index.html" class="logo">
+                        MENS<span>WEAR</span>
+                    </a>
+                    
+                    <!-- Mobile Menu Checkbox (CSS-only) -->
+                    <input type="checkbox" id="menuToggle" class="menu-checkbox">
+                    
+                    <!-- Navigation Menu -->
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                    
+                    <!-- Nav Icons -->
+                    <div class="nav-icons">
+                        <button class="nav-icon" aria-label="Search" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="nav-icon" aria-label="Account" id="accountBtn">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <a href="wishlist.html" class="nav-icon" aria-label="Wishlist">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                        <a href="cart.html" class="nav-icon" aria-label="Shopping Cart">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge">3</span>
+                        </a>
+                        
+                        <!-- Mobile Menu Toggle Label -->
+                        <label for="menuToggle" class="menu-toggle" aria-label="Menu">
+                            <i class="fas fa-bars"></i>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate-slide-left">
+                <p class="hero-subtitle">Spring/Summer 2026 Collection</p>
+                <h1 class="hero-title">Elevated Style<br>For Modern Men</h1>
+                <p class="hero-description">
+                    Discover the latest trends in men's fashion with premium materials 
+                    and contemporary designs. Exclusively for gentlemen aged 16-36.
+                </p>
+                <div class="hero-buttons">
+                    <a href="products.html" class="btn btn-primary btn-lg">Shop Now</a>
+                    <a href="#categories" class="btn btn-outline btn-lg">Explore More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND STORY SECTION WITH BACKGROUND -->
+    <section class="section" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=1920&h=800&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; color: white; padding: 100px 0;">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: white;">Where Style Meets Confidence</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">
+                    At MENSWEAR, we believe every man deserves to look and feel exceptional. Our curated collection combines timeless elegance with contemporary trends, crafted from premium materials that stand the test of time.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; font-weight: bold; color: var(--accent-light); margin-bottom: 0.5rem;">10K+</div>
+                        <div style="font-size: 1.1rem; color: rgba(255,255,255,0.8);">Happy Customers</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; font-weight: bold; color: var(--accent-light); margin-bottom: 0.5rem;">500+</div>
+                        <div style="font-size: 1.1rem; color: rgba(255,255,255,0.8);">Premium Products</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; font-weight: bold; color: var(--accent-light); margin-bottom: 0.5rem;">98%</div>
+                        <div style="font-size: 1.1rem; color: rgba(255,255,255,0.8);">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES SECTION -->
+    <section class="section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Categories</p>
+                <h2 class="section-title">Shop By Category</h2>
+                <p class="section-description">
+                    Explore our diverse collection of premium menswear for every occasion
+                </p>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&h=600&fit=crop" 
+                         alt="Men's Dress Shirts" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Dress Shirts</h3>
+                        <p class="category-count">180+ products</p>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500&h=600&fit=crop" 
+                         alt="Men's Pants" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Pants</h3>
+                        <p class="category-count">150+ products</p>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop" 
+                         alt="Men's Jackets" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Jackets</h3>
+                        <p class="category-count">120+ products</p>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=500&h=600&fit=crop" 
+                         alt="Men's Accessories" class="category-image">
+                    <div class="category-content">
+                        <h3 class="category-title">Accessories</h3>
+                        <p class="category-count">95+ products</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS SECTION -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Featured Products</p>
+                <h2 class="section-title">Trending Now</h2>
+                <p class="section-description">
+                    Our most popular items featuring modern designs and premium quality
+                </p>
+            </div>
+            
+            <div class="product-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">New</span>
+                        <img src="images/product_1.png" 
+                             alt="Premium Oxford Men's Shirt">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Dress Shirts</p>
+                        <h3 class="product-title">Premium Oxford Men's Shirt</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">(128)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$59.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge sale">-25%</span>
+                        <img src="images/product_2.png" 
+                             alt="Men's Slim Fit Jeans">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Pants</p>
+                        <h3 class="product-title">Men's Slim Fit Jeans</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-count">(89)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$74.00</span>
+                                <span class="price-original">$99.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/product_3.png" 
+                             alt="Waterproof Bomber Jacket">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Jackets</p>
+                        <h3 class="product-title">Waterproof Bomber Jacket</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">(95)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$119.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge sale">-20%</span>
+                        <img src="images/product_4.png" 
+                             alt="Men's Chino Khakis">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Pants</p>
+                        <h3 class="product-title">Men's Chino Khakis</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-count">(94)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$55.00</span>
+                                <span class="price-original">$69.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge new">New</span>
+                        <img src="images/product_5.png" 
+                             alt="Premium Men's Polo">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Polo Shirts</p>
+                        <h3 class="product-title">Premium Men's Polo</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">(203)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$44.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 6 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/product_6.png" 
+                             alt="Formal Men's Blazer">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Blazers</p>
+                        <h3 class="product-title">Formal Men's Blazer</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">(167)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$189.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 7 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge sale">-30%</span>
+                        <img src="images/product_7.png" 
+                             alt="Basic Cotton Men's T-Shirt">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">T-Shirts</p>
+                        <h3 class="product-title">Basic Cotton Men's T-Shirt</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-count">(112)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$27.00</span>
+                                <span class="price-original">$39.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 8 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/product_1.png" 
+                             alt="Oxford Leather Shoes">
+                        <div class="product-actions">
+                            <button class="product-action-btn" aria-label="Add to wishlist" onclick="alert('Added to wishlist!')">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html" class="product-action-btn" aria-label="Quick view">
+                                <i class="far fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">Shoes</p>
+                        <h3 class="product-title">Oxford Leather Shoes</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">(98)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <div class="product-price">
+                                <span class="price-current">$129.00</span>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="alert('Added to cart!')">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="products.html" class="btn btn-primary btn-lg">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Why Choose Us</p>
+                <h2 class="section-title">Our Commitment</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="feature-title">Fast Delivery</h3>
+                    <p class="feature-description">
+                        Free shipping on orders over $50. Nationwide delivery in 2-3 days.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Easy Returns</h3>
+                    <p class="feature-description">
+                        Free returns within 30 days if the product is defective or unsatisfactory.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Secure Payment</h3>
+                    <p class="feature-description">
+                        Multiple payment methods supported with absolute security.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-description">
+                        Our customer support team is always ready to assist you with any questions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h3>MENSWEAR</h3>
+                    <p>
+                        Premium men's fashion brand exclusively for gentlemen aged 16-36. 
+                        Modern style, superior quality, sustainable values.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook" onclick="alert('Connect with us on Facebook!'); return false;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram" onclick="alert('Follow us on Instagram!'); return false;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter" onclick="alert('Follow us on Twitter!'); return false;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube" onclick="alert('Subscribe to our YouTube!'); return false;">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="about.html">About Us</a>
+                        <a href="products.html">Products</a>
+                        <a href="#" onclick="alert('Return Policy page'); return false;">Return Policy</a>
+                        <a href="#" onclick="alert('Privacy Policy page'); return false;">Privacy Policy</a>
+                        <a href="#" onclick="alert('Terms of Service page'); return false;">Terms of Service</a>
+                    </div>
+                </div>
+                
+                <!-- Customer Service -->
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <div class="footer-links">
+                        <a href="#" onclick="alert('Help Center page'); return false;">Help Center</a>
+                        <a href="#" onclick="alert('Shopping Guide page'); return false;">Shopping Guide</a>
+                        <a href="#" onclick="alert('Payment Guide page'); return false;">Payment Guide</a>
+                        <a href="#" onclick="alert('Order tracking feature coming soon!'); return false;">Track Order</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter -->
+                <div class="footer-section">
+                    <h3>Newsletter Signup</h3>
+                    <p>
+                        Subscribe to receive information about new products and promotional programs.
+                    </p>
+                    <form class="newsletter-form" onsubmit="alert('Thank you for subscribing!'); return false;">
+                        <input type="email" class="newsletter-input" 
+                               placeholder="Your email" required>
+                        <button type="submit" class="newsletter-btn">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 MENSWEAR. Designed by Lab 1 - UX/UI Design. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Popup -->
+    <div class="popup-overlay" id="searchPopup">
+        <div class="popup-content">
+            <button class="popup-close" id="closeSearchPopup">&times;</button>
+            <h2 class="popup-title">Tìm kiếm sản phẩm</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Nhập tên sản phẩm...">
+                <button class="search-button">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            </div>
+            <div class="search-suggestions">
+                <h3>Từ khóa phổ biến:</h3>
+                <div class="suggestion-tags">
+                    <span class="tag">Áo sơ mi</span>
+                    <span class="tag">Quần jean</span>
+                    <span class="tag">Áo khoác</span>
+                    <span class="tag">Phụ kiện</span>
+                    <span class="tag">Giày dép</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Popup -->
+    <div class="popup-overlay" id="accountPopup">
+        <div class="popup-content">
+            <button class="popup-close" id="closeAccountPopup">&times;</button>
+            <h2 class="popup-title">Thông tin tài khoản</h2>
+            <div class="account-info">
+                <div class="account-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3 class="account-name">Khách hàng</h3>
+                <p class="account-email">Bạn chưa đăng nhập</p>
+            </div>
+            <div class="account-menu">
+                <a href="#" class="account-menu-item">
+                    <i class="fas fa-user"></i>
+                    <span>Thông tin cá nhân</span>
+                </a>
+                <a href="#" class="account-menu-item">
+                    <i class="fas fa-box"></i>
+                    <span>Đơn hàng của tôi</span>
+                </a>
+                <a href="wishlist.html" class="account-menu-item">
+                    <i class="fas fa-heart"></i>
+                    <span>Danh sách yêu thích</span>
+                </a>
+                <a href="#" class="account-menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+                <a href="#" class="account-menu-item logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng nhập / Đăng ký</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

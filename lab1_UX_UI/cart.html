@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shopping Cart - MENSWEAR">
+    <title>Shopping Cart - MENSWEAR</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Cart Page Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: white;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            font-size: 0.95rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-light);
+        }
+        
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .cart-items {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .cart-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            padding: var(--spacing-md);
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-details {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        
+        .item-image {
+            width: 100px;
+            height: 120px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .item-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        
+        .item-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .item-quantity {
+            display: flex;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            width: fit-content;
+        }
+        
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .qty-btn:hover {
+            background-color: var(--bg-secondary);
+        }
+        
+        .qty-input {
+            width: 50px;
+            height: 35px;
+            border: none;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .item-subtotal {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .remove-btn {
+            color: var(--text-light);
+            font-size: 1.3rem;
+            padding: var(--spacing-xs);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .remove-btn:hover {
+            color: var(--accent-color);
+        }
+        
+        .cart-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            font-size: 1rem;
+        }
+        
+        .summary-row.total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding-top: var(--spacing-md);
+            border-top: 2px solid var(--border-color);
+            margin-top: var(--spacing-md);
+            color: var(--accent-color);
+        }
+        
+        .discount-code {
+            margin-top: var(--spacing-md);
+        }
+        
+        .discount-input {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+        }
+        
+        .discount-input input {
+            flex: 1;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+        
+        .discount-input button {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+        }
+        
+        .discount-input button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: var(--spacing-md);
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: var(--spacing-md);
+        }
+        
+        .checkout-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            padding: var(--spacing-sm);
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: var(--spacing-sm);
+        }
+        
+        .continue-shopping:hover {
+            color: var(--accent-color);
+        }
+        
+        .payment-methods {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .payment-methods h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .payment-icons {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+        
+        .payment-icon {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: var(--spacing-xxl);
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .empty-cart h2 {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .empty-cart p {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        @media (max-width: 992px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-sidebar {
+                position: static;
+            }
+            
+            .cart-header {
+                display: none;
+            }
+            
+            .cart-item {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .item-details {
+                flex-direction: column;
+            }
+            
+            .item-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-left">
+                    <span>📧 support@menswear.com</span>
+                    <span>📞 +1 800 MENSWEAR</span>
+                </div>
+                <div class="header-top-right">
+                    <a href="#" onclick="alert('Order tracking feature coming soon!'); return false;">Track Order</a>
+                    <a href="contact.html">Help</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <nav class="nav-container">
+                    <a href="index.html" class="logo">
+                        MENS<span>WEAR</span>
+                    </a>
+                    
+                    <input type="checkbox" id="menuToggle" class="menu-checkbox">
+                    
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-icons">
+                        <button class="nav-icon" id="searchToggle" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="nav-icon" id="accountToggle" aria-label="Account">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <a href="wishlist.html" class="nav-icon" aria-label="Wishlist">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                        <a href="cart.html" class="nav-icon active" aria-label="Shopping Cart">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge">3</span>
+                        </a>
+                        
+                        <label for="menuToggle" class="menu-toggle" aria-label="Menu">
+                            <i class="fas fa-bars"></i>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Shopping Cart</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Cart</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="cart-container">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <h2 class="mb-4">Shopping Cart Items (3)</h2>
+                    
+                    <div class="cart-header">
+                        <div>Product</div>
+                        <div>Price</div>
+                        <div>Quantity</div>
+                        <div>Total</div>
+                        <div></div>
+                    </div>
+                    
+                    <!-- Cart Item 1 -->
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <div class="item-image">
+                                <img src="images/product_1.png" 
+                                     alt="Premium Cotton T-Shirt">
+                            </div>
+                            <div class="item-info">
+                                <h3>Premium Cotton T-Shirt</h3>
+                                <p class="item-meta">Color: Yellow</p>
+                                <p class="item-meta">Size: M</p>
+                                <p class="item-meta">SKU: FST-T001</p>
+                            </div>
+                        </div>
+                        <div class="item-price">$29.00</div>
+                        <div class="item-quantity">
+                            <button class="qty-btn">-</button>
+                            <input type="number" class="qty-input" value="2" min="1">
+                            <button class="qty-btn">+</button>
+                        </div>
+                        <div class="item-subtotal">$58.00</div>
+                        <button class="remove-btn" aria-label="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Cart Item 2 -->
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <div class="item-image">
+                                <img src="images/product_3.png" 
+                                     alt="Waterproof Bomber Jacket">
+                            </div>
+                            <div class="item-info">
+                                <h3>Waterproof Bomber Jacket</h3>
+                                <p class="item-meta">Color: Navy</p>
+                                <p class="item-meta">Size: L</p>
+                                <p class="item-meta">SKU: FST-J005</p>
+                            </div>
+                        </div>
+                        <div class="item-price">$79.00</div>
+                        <div class="item-quantity">
+                            <button class="qty-btn">-</button>
+                            <input type="number" class="qty-input" value="1" min="1">
+                            <button class="qty-btn">+</button>
+                        </div>
+                        <div class="item-subtotal">$79.00</div>
+                        <button class="remove-btn" aria-label="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Cart Item 3 -->
+                    <div class="cart-item">
+                        <div class="item-details">
+                            <div class="item-image">
+                                <img src="images/product_2.png" 
+                                     alt="Oxford Classic Shirt">
+                            </div>
+                            <div class="item-info">
+                                <h3>Oxford Classic Shirt</h3>
+                                <p class="item-meta">Color: White</p>
+                                <p class="item-meta">Size: M</p>
+                                <p class="item-meta">SKU: FST-S002</p>
+                            </div>
+                        </div>
+                        <div class="item-price">$34.00</div>
+                        <div class="item-quantity">
+                            <button class="qty-btn">-</button>
+                            <input type="number" class="qty-input" value="1" min="1">
+                            <button class="qty-btn">+</button>
+                        </div>
+                        <div class="item-subtotal">$34.00</div>
+                        <button class="remove-btn" aria-label="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Cart Sidebar -->
+                <aside class="cart-sidebar">
+                    <!-- Cart Summary -->
+                    <div class="cart-summary">
+                        <h3 class="summary-title">Order Summary</h3>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <strong>$171.00</strong>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Discount:</span>
+                            <strong style="color: var(--accent-color);">-$5.00</strong>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <strong style="color: #27ae60;">FREE</strong>
+                        </div>
+                        
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span>$166.00</span>
+                        </div>
+                        
+                        <div class="discount-code">
+                            <label style="font-weight: 600; display: block; margin-bottom: var(--spacing-sm);">
+                                <i class="fas fa-tag"></i> Discount Code
+                            </label>
+                            <div class="discount-input">
+                                <input type="text" placeholder="Enter code">
+                                <button>Apply</button>
+                            </div>
+                        </div>
+                        
+                        <button class="checkout-btn" onclick="alert('Proceeding to checkout...')">
+                            <i class="fas fa-lock"></i> Proceed to Checkout
+                        </button>
+                        
+                        <a href="products.html" class="continue-shopping">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
+                    </div>
+                    
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <h3>We Accept</h3>
+                        <div class="payment-icons">
+                            <span class="payment-icon"><i class="fab fa-cc-visa"></i> Visa</span>
+                            <span class="payment-icon"><i class="fab fa-cc-mastercard"></i> Mastercard</span>
+                            <span class="payment-icon"><i class="fas fa-money-bill-wave"></i> COD</span>
+                            <span class="payment-icon"><i class="fas fa-university"></i> Bank Transfer</span>
+                            <span class="payment-icon"><i class="fas fa-mobile-alt"></i> Mobile Pay</span>
+                            <span class="payment-icon"><i class="fas fa-wallet"></i> E-Wallet</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MENS<span style="color: var(--accent-color);">WEAR</span></h3>
+                    <p>
+                        Where style meets confidence. We bring you high-quality fashion products with 
+                        modern designs that suit everyone's lifestyle.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="about.html">About Us</a>
+                        <a href="products.html">Products</a>
+                        <a href="#">Return Policy</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <div class="footer-links">
+                        <a href="#">Help Center</a>
+                        <a href="#">Shopping Guide</a>
+                        <a href="#">Payment Guide</a>
+                        <a href="#">Track Order</a>
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive updates about new products and promotions.</p>
+                    <form class="newsletter-form" onsubmit="alert('Thank you for subscribing!'); return false;">
+                        <input type="email" class="newsletter-input" placeholder="Your email" required>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 MENSWEAR. Designed by Lab 1 - UX/UI Design. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

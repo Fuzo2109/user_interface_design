@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Product Details - MENSWEAR">
+    <title>Premium Cotton T-Shirt - MENSWEAR</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Product Detail Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            gap: var(--spacing-xs);
+            font-size: 0.95rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-light);
+        }
+        
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xxl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .main-image {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-sm);
+        }
+        
+        .thumbnail {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: var(--transition-fast);
+        }
+        
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: var(--accent-color);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .product-info-section {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .product-meta {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .product-badge-detail {
+            background-color: var(--accent-color);
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .product-sku {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .product-detail-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .product-detail-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        
+        .stars-large {
+            color: var(--accent-light);
+            font-size: 1.2rem;
+        }
+        
+        .rating-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .reviews-link {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .product-price-section {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .price-detail {
+            display: flex;
+            align-items: baseline;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .price-current-large {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .price-original-large {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+        
+        .price-discount {
+            background-color: #e74c3c;
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+        }
+        
+        .tax-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .product-description-short {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .product-options {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .option-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .option-label {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+        
+        .color-selector {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .color-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: var(--radius-full);
+            border: 3px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+        
+        .color-btn:hover,
+        .color-btn.selected {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+        
+        .color-btn.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .size-selector {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .size-btn {
+            min-width: 50px;
+            height: 50px;
+            padding: 0 var(--spacing-sm);
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .size-btn:hover {
+            border-color: var(--primary-color);
+            background-color: var(--bg-secondary);
+        }
+        
+        .size-btn.selected {
+            border-color: var(--accent-color);
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .size-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .quantity-control {
+            display: flex;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+        
+        .quantity-btn {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .quantity-btn:hover {
+            background-color: var(--bg-secondary);
+        }
+        
+        .quantity-input {
+            width: 60px;
+            height: 45px;
+            border: none;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .stock-status {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .btn-add-to-cart {
+            background-color: var(--accent-color);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-add-to-cart:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-wishlist,
+        .btn-compare {
+            width: 55px;
+            height: 55px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: white;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-wishlist:hover,
+        .btn-compare:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .product-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-text strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        .feature-text span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .product-tabs {
+            margin-top: var(--spacing-xxl);
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: var(--spacing-md);
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .tab-btn {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .tab-btn.active {
+            color: var(--accent-color);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .specifications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .specifications-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .specifications-table td {
+            padding: var(--spacing-md);
+        }
+        
+        .specifications-table td:first-child {
+            font-weight: 600;
+            width: 200px;
+        }
+        
+        .review-item {
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .reviewer-name {
+            font-weight: 600;
+        }
+        
+        .review-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .related-products {
+            margin-top: var(--spacing-xxl);
+        }
+        
+        @media (max-width: 992px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-info-section {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail-title {
+                font-size: 1.5rem;
+            }
+            
+            .price-current-large {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-left">
+                    <span>📧 support@fashionista.vn</span>
+                    <span>📞 1900 1234</span>
+                </div>
+                <div class="header-top-right">
+                    <a href="#">Theo dõi đơn hàng</a>
+                    <a href="#">Trợ giúp</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <nav class="nav-container">
+                    <a href="index.html" class="logo">
+                        FASHION<span>ISTA</span>
+                    </a>
+                    
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="products.html" class="active">Sản phẩm</a></li>
+                        <li><a href="#">Nam</a></li>
+                        <li><a href="#">Nữ</a></li>
+                        <li><a href="#">Sale</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                    
+                    <div class="nav-icons">
+                        <button class="nav-icon" aria-label="Tìm kiếm">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="nav-icon" aria-label="Tài khoản">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <button class="nav-icon" aria-label="Yêu thích">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <a href="cart.html" class="nav-icon" aria-label="Giỏ hàng">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge">3</span>
+                        </a>
+                        
+                        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Trang chủ</a>
+                <span>/</span>
+                <a href="products.html">Sản phẩm</a>
+                <span>/</span>
+                <a href="#">Áo thun</a>
+                <span>/</span>
+                <span>Áo Thun Premium Cotton</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL -->
+    <section class="section">
+        <div class="container">
+            <div class="product-detail-container">
+                <!-- Product Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image" id="mainImage">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&h=1000&fit=crop" 
+                             alt="Áo Thun Premium Cotton">
+                    </div>
+                    <div class="thumbnail-images">
+                        <div class="thumbnail active">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&h=250&fit=crop" 
+                                 alt="View 1">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&h=250&fit=crop" 
+                                 alt="View 2">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=200&h=250&fit=crop" 
+                                 alt="View 3">
+                        </div>
+                        <div class="thumbnail">
+                            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=200&h=250&fit=crop" 
+                                 alt="View 4">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="product-info-section">
+                    <div class="product-meta">
+                        <span class="product-badge-detail">Mới</span>
+                        <span class="product-sku">SKU: FST-T001</span>
+                    </div>
+                    
+                    <h1 class="product-detail-title">Áo Thun Premium Cotton</h1>
+                    
+                    <div class="product-detail-rating">
+                        <div class="rating-stars">
+                            <span class="stars-large">★★★★★</span>
+                            <span class="rating-text">(4.8/5)</span>
+                        </div>
+                        <a href="#reviews" class="reviews-link">128 đánh giá</a>
+                        <span class="rating-text">|</span>
+                        <span class="rating-text">Đã bán: 1.2k</span>
+                    </div>
+                    
+                    <div class="product-price-section">
+                        <div class="price-detail">
+                            <span class="price-current-large">299.000đ</span>
+                            <span class="price-original-large">399.000đ</span>
+                            <span class="price-discount">-25%</span>
+                        </div>
+                        <p class="tax-info">Giá đã bao gồm VAT</p>
+                    </div>
+                    
+                    <p class="product-description-short">
+                        Áo thun cao cấp được làm từ 100% cotton tự nhiên, mang lại cảm giác mềm mại và thoáng mát. 
+                        Thiết kế basic dễ phối đồ, phù hợp cho nhiều hoàn cảnh từ đi làm đến dạo phố.
+                    </p>
+                    
+                    <!-- Product Options -->
+                    <div class="product-options">
+                        <!-- Color Selection -->
+                        <div class="option-group">
+                            <label class="option-label">Màu sắc: <span id="selectedColor">Đen</span></label>
+                            <div class="color-selector">
+                                <button class="color-btn selected" style="background-color: #000000;" title="Đen"></button>
+                                <button class="color-btn" style="background-color: #ffffff; border-color: #ddd;" title="Trắng"></button>
+                                <button class="color-btn" style="background-color: #808080;" title="Xám"></button>
+                                <button class="color-btn" style="background-color: #000080;" title="Navy"></button>
+                                <button class="color-btn" style="background-color: #ff0000;" title="Đỏ"></button>
+                            </div>
+                        </div>
+                        
+                        <!-- Size Selection -->
+                        <div class="option-group">
+                            <label class="option-label">Kích thước: <span id="selectedSize">M</span></label>
+                            <div class="size-selector">
+                                <button class="size-btn">XS</button>
+                                <button class="size-btn">S</button>
+                                <button class="size-btn selected">M</button>
+                                <button class="size-btn">L</button>
+                                <button class="size-btn">XL</button>
+                                <button class="size-btn" disabled>XXL</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Quantity Selection -->
+                        <div class="option-group">
+                            <label class="option-label">Số lượng:</label>
+                            <div class="quantity-selector">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn" id="decreaseQty">-</button>
+                                    <input type="number" class="quantity-input" value="1" min="1" max="99" id="quantity">
+                                    <button class="quantity-btn" id="increaseQty">+</button>
+                                </div>
+                                <span class="stock-status">
+                                    <i class="fas fa-check-circle"></i> Còn hàng
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-add-to-cart">
+                            <i class="fas fa-shopping-bag"></i>
+                            Thêm vào giỏ hàng
+                        </button>
+                        <button class="btn-wishlist" title="Thêm vào yêu thích">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="btn-compare" title="So sánh">
+                            <i class="fas fa-balance-scale"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Product Features -->
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Miễn phí vận chuyển</strong>
+                                <span>Đơn hàng từ 500.000đ</span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-undo-alt"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Đổi trả dễ dàng</strong>
+                                <span>Trong vòng 30 ngày</span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Thanh toán an toàn</strong>
+                                <span>Bảo mật tuyệt đối</span>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="feature-text">
+                                <strong>Chính hãng 100%</strong>
+                                <span>Bảo hành chất lượng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="description">Mô tả</button>
+                    <button class="tab-btn" data-tab="specifications">Thông số</button>
+                    <button class="tab-btn" data-tab="reviews">Đánh giá (128)</button>
+                    <button class="tab-btn" data-tab="shipping">Vận chuyển</button>
+                </div>
+                
+                <!-- Tab Content -->
+                <div class="tab-content active" id="description">
+                    <h3 class="mb-3">Mô tả sản phẩm</h3>
+                    <p class="mb-2">
+                        Áo thun Premium Cotton là sự lựa chọn hoàn hảo cho những ai yêu thích sự thoải mái và phong cách. 
+                        Được làm từ 100% cotton tự nhiên cao cấp, sản phẩm mang lại cảm giác mềm mại, thoáng mát và thấm hút mồ hôi tốt.
+                    </p>
+                    <p class="mb-2">
+                        <strong>Đặc điểm nổi bật:</strong>
+                    </p>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>Chất liệu 100% cotton cao cấp, không xù lông, không co rút</li>
+                        <li>Form dáng basic, dễ phối đồ với nhiều phong cách khác nhau</li>
+                        <li>Đường may tỉ mỉ, chắc chắn, không bung chỉ sau nhiều lần giặt</li>
+                        <li>Cổ tròn chuẩn, không bị giãn hay biến dạng</li>
+                        <li>Màu sắc đa dạng, không phai sau nhiều lần giặt</li>
+                        <li>Thiết kế tối giản, phù hợp cả nam và nữ</li>
+                    </ul>
+                    <p class="mt-3">
+                        <strong>Hướng dẫn bảo quản:</strong><br>
+                        - Giặt máy ở nhiệt độ thường, không dùng chất tẩy mạnh<br>
+                        - Không ngâm lâu trong nước<br>
+                        - Phơi nơi thoáng mát, tránh ánh nắng trực tiếp<br>
+                        - Là ở nhiệt độ thấp nếu cần thiết
+                    </p>
+                </div>
+                
+                <div class="tab-content" id="specifications">
+                    <h3 class="mb-3">Thông số kỹ thuật</h3>
+                    <table class="specifications-table">
+                        <tr>
+                            <td>Chất liệu</td>
+                            <td>100% Cotton tự nhiên</td>
+                        </tr>
+                        <tr>
+                            <td>Xuất xứ</td>
+                            <td>Việt Nam</td>
+                        </tr>
+                        <tr>
+                            <td>Thương hiệu</td>
+                            <td>FASHIONISTA</td>
+                        </tr>
+                        <tr>
+                            <td>Kiểu dáng</td>
+                            <td>Regular Fit</td>
+                        </tr>
+                        <tr>
+                            <td>Cổ áo</td>
+                            <td>Cổ tròn</td>
+                        </tr>
+                        <tr>
+                            <td>Tay áo</td>
+                            <td>Ngắn</td>
+                        </tr>
+                        <tr>
+                            <td>Màu sắc</td>
+                            <td>Đen, Trắng, Xám, Navy, Đỏ</td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td>XS, S, M, L, XL</td>
+                        </tr>
+                        <tr>
+                            <td>Độ dày vải</td>
+                            <td>Trung bình (220gsm)</td>
+                        </tr>
+                        <tr>
+                            <td>Bảo hành</td>
+                            <td>30 ngày đổi trả miễn phí</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="tab-content" id="reviews">
+                    <h3 class="mb-4">Đánh giá từ khách hàng</h3>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div>
+                                <span class="reviewer-name">Nguyễn Văn A</span>
+                                <div class="stars" style="color: var(--accent-light);">★★★★★</div>
+                            </div>
+                            <span class="review-date">15/12/2025</span>
+                        </div>
+                        <p>
+                            Áo rất đẹp và chất lượng, vải mềm mại thoáng mát. Form áo vừa vặn, 
+                            màu sắc giống như hình. Mình rất hài lòng với sản phẩm này!
+                        </p>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div>
+                                <span class="reviewer-name">Trần Thị B</span>
+                                <div class="stars" style="color: var(--accent-light);">★★★★★</div>
+                            </div>
+                            <span class="review-date">10/12/2025</span>
+                        </div>
+                        <p>
+                            Chất lượng tuyệt vời! Giá cả hợp lý. Shop giao hàng nhanh và đóng gói cẩn thận. 
+                            Sẽ ủng hộ shop thêm nhiều đơn nữa.
+                        </p>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div>
+                                <span class="reviewer-name">Lê Văn C</span>
+                                <div class="stars" style="color: var(--accent-light);">★★★★☆</div>
+                            </div>
+                            <span class="review-date">05/12/2025</span>
+                        </div>
+                        <p>
+                            Áo đẹp, chất vải tốt. Tuy nhiên size hơi rộng so với mô tả. 
+                            Nếu mua lại mình sẽ chọn size nhỏ hơn một size.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-outline">Xem thêm đánh giá</button>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="shipping">
+                    <h3 class="mb-3">Thông tin vận chuyển</h3>
+                    <p class="mb-2"><strong>Phí vận chuyển:</strong></p>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>Miễn phí vận chuyển cho đơn hàng từ 500.000đ</li>
+                        <li>Phí vận chuyển cố định 30.000đ cho đơn hàng dưới 500.000đ</li>
+                        <li>Giao hàng toàn quốc</li>
+                    </ul>
+                    
+                    <p class="mt-3 mb-2"><strong>Thời gian giao hàng:</strong></p>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>Nội thành Hà Nội, TP.HCM: 1-2 ngày</li>
+                        <li>Các tỉnh thành khác: 2-4 ngày</li>
+                        <li>Vùng sâu, vùng xa: 4-7 ngày</li>
+                    </ul>
+                    
+                    <p class="mt-3 mb-2"><strong>Chính sách đổi trả:</strong></p>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>Đổi trả miễn phí trong vòng 30 ngày</li>
+                        <li>Sản phẩm còn nguyên tem mác, chưa qua sử dụng</li>
+                        <li>Đổi size miễn phí 1 lần</li>
+                        <li>Hoàn tiền 100% nếu sản phẩm lỗi do nhà sản xuất</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <div class="related-products">
+                <div class="section-header">
+                    <p class="section-subtitle">Gợi ý cho bạn</p>
+                    <h2 class="section-title">Sản Phẩm Liên Quan</h2>
+                </div>
+                
+                <div class="product-grid">
+                    <!-- Reuse product cards from homepage -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=500&fit=crop" 
+                                 alt="Áo sơ mi">
+                            <div class="product-actions">
+                                <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                                <button class="product-action-btn"><i class="far fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Áo sơ mi</p>
+                            <h3 class="product-title">Áo Sơ Mi Oxford Classic</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-count">(89)</span>
+                            </div>
+                            <div class="product-price-row">
+                                <div class="product-price">
+                                    <span class="price-current">349.000đ</span>
+                                    <span class="price-original">499.000đ</span>
+                                </div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop" 
+                                 alt="Áo polo">
+                            <div class="product-actions">
+                                <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                                <button class="product-action-btn"><i class="far fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Áo polo</p>
+                            <h3 class="product-title">Áo Polo Nam Classic</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(145)</span>
+                            </div>
+                            <div class="product-price-row">
+                                <div class="product-price">
+                                    <span class="price-current">329.000đ</span>
+                                </div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <span class="product-badge sale">-40%</span>
+                            <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=500&fit=crop" 
+                                 alt="Áo hoodie">
+                            <div class="product-actions">
+                                <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                                <button class="product-action-btn"><i class="far fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Áo hoodie</p>
+                            <h3 class="product-title">Hoodie Basic Unisex</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★☆</span>
+                                <span class="rating-count">(112)</span>
+                            </div>
+                            <div class="product-price-row">
+                                <div class="product-price">
+                                    <span class="price-current">359.000đ</span>
+                                    <span class="price-original">599.000đ</span>
+                                </div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=400&h=500&fit=crop" 
+                                 alt="Áo tanktop">
+                            <div class="product-actions">
+                                <button class="product-action-btn"><i class="far fa-heart"></i></button>
+                                <button class="product-action-btn"><i class="far fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Áo ba lỗ</p>
+                            <h3 class="product-title">Áo Tank Top Thể Thao</h3>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">(134)</span>
+                            </div>
+                            <div class="product-price-row">
+                                <div class="product-price">
+                                    <span class="price-current">189.000đ</span>
+                                </div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FASHIONISTA</h3>
+                    <p>
+                        Chúng tôi mang đến những sản phẩm thời trang chất lượng cao với 
+                        thiết kế hiện đại, phù hợp với phong cách của mọi người.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Liên Kết Nhanh</h3>
+                    <div class="footer-links">
+                        <a href="#">Về chúng tôi</a>
+                        <a href="#">Sản phẩm</a>
+                        <a href="#">Chính sách đổi trả</a>
+                        <a href="#">Chính sách bảo mật</a>
+                        <a href="#">Điều khoản sử dụng</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Chăm Sóc Khách Hàng</h3>
+                    <div class="footer-links">
+                        <a href="#">Trung tâm trợ giúp</a>
+                        <a href="#">Hướng dẫn mua hàng</a>
+                        <a href="#">Hướng dẫn thanh toán</a>
+                        <a href="#">Theo dõi đơn hàng</a>
+                        <a href="#">Liên hệ</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Đăng Ký Nhận Tin</h3>
+                    <p>Đăng ký để nhận thông tin về sản phẩm mới và các chương trình khuyến mãi.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Email của bạn" required>
+                        <button type="submit" class="newsletter-btn">Đăng ký</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 FASHIONISTA. Thiết kế bởi Lab 1 - UX/UI Design. Bảo lưu mọi quyền.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

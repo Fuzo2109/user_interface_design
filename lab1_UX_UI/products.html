@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop Men's Fashion Products - MENSWEAR">
+    <title>Shop Products - MENSWEAR</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Additional styles for products page */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: var(--spacing-xxl) 0 var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: white;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            font-size: 0.95rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-light);
+        }
+        
+        .products-container {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .filter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            cursor: pointer;
+            padding: var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
+        
+        .filter-option:hover {
+            background-color: var(--bg-secondary);
+        }
+        
+        .filter-option input[type="checkbox"],
+        .filter-option input[type="radio"] {
+            cursor: pointer;
+        }
+        
+        .filter-option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        
+        .filter-count {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .price-range {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+        
+        .price-input {
+            flex: 1;
+            padding: var(--spacing-xs);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+        }
+        
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+        
+        .color-option {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .color-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .products-main {
+            flex: 1;
+        }
+        
+        .products-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .results-count {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .toolbar-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+        
+        .view-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: white;
+            color: var(--text-secondary);
+        }
+        
+        .view-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .sort-select {
+            padding: var(--spacing-xs) var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            cursor: pointer;
+            background: white;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .page-btn {
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: white;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .page-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .page-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+        
+        .filter-mobile-toggle {
+            display: none;
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 992px) {
+            .products-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: white;
+                z-index: 1000;
+                padding: var(--spacing-lg);
+                overflow-y: auto;
+            }
+            
+            .sidebar.active {
+                display: block;
+            }
+            
+            .filter-mobile-toggle {
+                display: block;
+            }
+            
+            .close-filters {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .close-filters button {
+                padding: var(--spacing-sm);
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-toolbar {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+            
+            .toolbar-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-left">
+                    <span>📧 support@menswear.com</span>
+                    <span>📞 +1 800 MENSWEAR</span>
+                </div>
+                <div class="header-top-right">
+                    <a href="#" onclick="alert('Order tracking feature coming soon!'); return false;">Track Order</a>
+                    <a href="contact.html">Help</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-main">
+            <div class="container">
+                <nav class="nav-container">
+                    <a href="index.html" class="logo">
+                        MENS<span>WEAR</span>
+                    </a>
+                    
+                    <input type="checkbox" id="menuToggle" class="menu-checkbox">
+                    
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html" class="active">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                    
+                    <div class="nav-icons">
+                        <button class="nav-icon" id="searchToggle" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="nav-icon" id="accountToggle" aria-label="Account">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <a href="wishlist.html" class="nav-icon" aria-label="Wishlist">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                        <a href="cart.html" class="nav-icon" aria-label="Shopping Cart">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge">3</span>
+                        </a>
+                        
+                        <label for="menuToggle" class="menu-toggle" aria-label="Menu">
+                            <i class="fas fa-bars"></i>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Fashion Collection</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Products</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="section">
+        <div class="container">
+            <!-- Mobile Filter Toggle -->
+            <button class="filter-mobile-toggle" id="filterToggle">
+                <i class="fas fa-filter"></i> Filters
+            </button>
+            
+            <div class="products-container">
+                <!-- SIDEBAR - FILTERS -->
+                <aside class="sidebar" id="filterSidebar">
+                    <div class="close-filters">
+                        <button id="closeFilters">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Category Filter -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Categories</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>All Products</span>
+                                <span class="filter-count">(542)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>T-Shirts</span>
+                                <span class="filter-count">(89)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>Shirts</span>
+                                <span class="filter-count">(67)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>Jeans</span>
+                                <span class="filter-count">(54)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>Pants</span>
+                                <span class="filter-count">(78)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>Outerwear</span>
+                                <span class="filter-count">(92)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>Jackets</span>
+                                <span class="filter-count">(45)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category">
+                                <span>Accessories</span>
+                                <span class="filter-count">(117)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Filter -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Price</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="radio" name="price">
+                                <span>Under $20</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="price">
+                                <span>$20 - $50</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="price">
+                                <span>$50 - $100</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="price">
+                                <span>Over $100</span>
+                            </label>
+                        </div>
+                        <div class="price-range mt-3">
+                            <input type="number" class="price-input" placeholder="Min" min="0">
+                            <span>-</span>
+                            <input type="number" class="price-input" placeholder="Max" min="0">
+                        </div>
+                    </div>
+                    
+                    <!-- Color Filter -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Color</h3>
+                        <div class="color-options">
+                            <button class="color-option" style="background-color: #000000;" title="Black"></button>
+                            <button class="color-option" style="background-color: #ffffff; border-color: #ddd;" title="White"></button>
+                            <button class="color-option" style="background-color: #808080;" title="Gray"></button>
+                            <button class="color-option" style="background-color: #ff0000;" title="Red"></button>
+                            <button class="color-option" style="background-color: #0000ff;" title="Blue"></button>
+                            <button class="color-option" style="background-color: #008000;" title="Green"></button>
+                            <button class="color-option" style="background-color: #ffff00; border-color: #ddd;" title="Yellow"></button>
+                            <button class="color-option" style="background-color: #ffc0cb;" title="Pink"></button>
+                            <button class="color-option" style="background-color: #ffa500;" title="Orange"></button>
+                            <button class="color-option" style="background-color: #a52a2a;" title="Brown"></button>
+                            <button class="color-option" style="background-color: #800080;" title="Purple"></button>
+                            <button class="color-option" style="background-color: #f5f5dc; border-color: #ddd;" title="Beige"></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Size Filter -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Size</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="size">
+                                <span>XS</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="size">
+                                <span>S</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="size">
+                                <span>M</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="size">
+                                <span>L</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="size">
+                                <span>XL</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="size">
+                                <span>XXL</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Brand Filter -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Brand</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="brand">
+                                <span>MENSWEAR</span>
+                                <span class="filter-count">(156)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="brand">
+                                <span>Urban Style</span>
+                                <span class="filter-count">(89)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="brand">
+                                <span>Classic Wear</span>
+                                <span class="filter-count">(67)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="brand">
+                                <span>Trendy</span>
+                                <span class="filter-count">(123)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Filter -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Rating</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="radio" name="rating">
+                                <span>★★★★★ (5 stars)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="rating">
+                                <span>★★★★☆ (4+ stars)</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="radio" name="rating">
+                                <span>★★★☆☆ (3+ stars)</span>
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+                
+                <!-- MAIN PRODUCTS AREA -->
+                <main class="products-main">
+                    <!-- Toolbar -->
+                    <div class="products-toolbar">
+                        <p class="results-count">Showing <strong>1-16</strong> of <strong>542</strong> products</p>
+                        
+                        <div class="toolbar-actions">
+                            <div class="view-toggle">
+                                <button class="view-btn active" title="Grid">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="view-btn" title="List">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                            
+                            <select class="sort-select">
+                                <option>Default</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Name: A-Z</option>
+                                <option>Name: Z-A</option>
+                                <option>Newest</option>
+                                <option>Best Selling</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="product-grid">
+                        <!-- Row 1 - Shirts -->
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge new">NEW</span>
+                                <img src="images/product_1.png" alt="Cotton T-Shirt">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">T-Shirts</p>
+                                <h3 class="product-title">Premium Cotton T-Shirt</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(245)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$29.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-30%</span>
+                                <img src="images/product_2.png" alt="Oxford Shirt">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Shirts</p>
+                                <h3 class="product-title">Oxford Classic Shirt</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(189)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$42.00</span>
+                                        <span class="price-original">$60.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="images/product_1.png" alt="Polo Shirt">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Polo Shirts</p>
+                                <h3 class="product-title">Classic Polo Shirt</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(156)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$38.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge new">NEW</span>
+                                <img src="images/product_2.png" alt="Linen Shirt">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Shirts</p>
+                                <h3 class="product-title">Linen Summer Shirt</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(134)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$45.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 - Pants -->
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-25%</span>
+                                <img src="images/product_4.png" alt="Slim Fit Jeans">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Jeans</p>
+                                <h3 class="product-title">Slim Fit Denim Jeans</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(298)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$59.00</span>
+                                        <span class="price-original">$79.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="images/product_4.png" alt="Chino Pants">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Chinos</p>
+                                <h3 class="product-title">Comfort Fit Chino Pants</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(176)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$52.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-20%</span>
+                                <img src="images/product_4.png" alt="Cargo Pants">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Cargo Pants</p>
+                                <h3 class="product-title">Urban Cargo Pants</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(203)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$48.00</span>
+                                        <span class="price-original">$60.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="images/product_4.png" alt="Jogger Pants">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Joggers</p>
+                                <h3 class="product-title">Athletic Jogger Pants</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(167)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$44.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 - Shoes -->
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge new">NEW</span>
+                                <img src="images/product_5.png" alt="Running Shoes">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Athletic Shoes</p>
+                                <h3 class="product-title">Performance Running Shoes</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(412)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$89.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-35%</span>
+                                <img src="images/product_5.png" alt="Casual Sneakers">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Sneakers</p>
+                                <h3 class="product-title">Classic White Sneakers</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(356)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$65.00</span>
+                                        <span class="price-original">$100.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="images/product_5.png" alt="Oxford Shoes">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Dress Shoes</p>
+                                <h3 class="product-title">Leather Oxford Shoes</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(198)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$95.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-25%</span>
+                                <img src="images/product_5.png" alt="Canvas Shoes">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Canvas Shoes</p>
+                                <h3 class="product-title">Low Top Canvas Shoes</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(289)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$45.00</span>
+                                        <span class="price-original">$60.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 4 - Mixed (Jackets & More) -->
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge new">NEW</span>
+                                <img src="images/product_3.png" alt="Bomber Jacket">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Jackets</p>
+                                <h3 class="product-title">Waterproof Bomber Jacket</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(267)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$89.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-40%</span>
+                                <img src="images/product_7.png" alt="Hoodie">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Hoodies</p>
+                                <h3 class="product-title">Premium Pullover Hoodie</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(223)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$42.00</span>
+                                        <span class="price-original">$70.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="images/product_6.png" alt="Blazer">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Blazers</p>
+                                <h3 class="product-title">Formal Business Blazer</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(178)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$129.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="product-badge sale">-30%</span>
+                                <img src="images/product_3.png" alt="Denim Jacket">
+                                <div class="product-actions">
+                                    <button class="product-action-btn" aria-label="Wishlist">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                    <button class="product-action-btn" aria-label="Quick View">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="product-category">Denim Jackets</p>
+                                <h3 class="product-title">Classic Denim Jacket</h3>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(192)</span>
+                                </div>
+                                <div class="product-price-row">
+                                    <div class="product-price">
+                                        <span class="price-current">$63.00</span>
+                                        <span class="price-original">$90.00</span>
+                                    </div>
+                                    <button class="add-to-cart-btn">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="page-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">4</button>
+                        <button class="page-btn">5</button>
+                        <button class="page-btn">...</button>
+                        <button class="page-btn">34</button>
+                        <button class="page-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MENS<span style="color: var(--accent-color);">WEAR</span></h3>
+                    <p>
+                        Where style meets confidence. We bring you high-quality fashion products with 
+                        modern designs that suit everyone's lifestyle.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="about.html">About Us</a>
+                        <a href="products.html">Products</a>
+                        <a href="#">Return Policy</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <div class="footer-links">
+                        <a href="#">Help Center</a>
+                        <a href="#">Shopping Guide</a>
+                        <a href="#">Payment Guide</a>
+                        <a href="#">Track Order</a>
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>
+                        Subscribe to receive updates about new products and promotions.
+                    </p>
+                    <form class="newsletter-form" onsubmit="alert('Thank you for subscribing!'); return false;">
+                        <input type="email" class="newsletter-input" 
+                               placeholder="Your email" required>
+                        <button type="submit" class="newsletter-btn">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 MENSWEAR. Designed by Lab 1 - UX/UI Design. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
